@@ -1,0 +1,26 @@
+[
+  {
+    "code": "CUN-2026-01",
+    "name": "Cancún Escape",
+    "price": 899,
+    "start": "2026-01-15",
+    "nights": 4,
+    "image": "/images/reef1.jpg"
+  },
+  {
+    "code": "BHS-2026-02",
+    "name": "Bahamas Getaway",
+    "price": 1099,
+    "start": "2026-02-10",
+    "nights": 5,
+    "image": "/images/reef2.jpg"
+  },
+  {
+    "code": "DPS-2026-03",
+    "name": "Bali Adventure",
+    "price": 1499,
+    "start": "2026-03-05",
+    "nights": 7,
+    "image": "/images/reef3.jpg"
+  }
+]
