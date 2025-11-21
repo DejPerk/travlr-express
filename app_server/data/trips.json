@@ -2,25 +2,37 @@
   {
     "code": "CUN-2026-01",
     "name": "Cancún Escape",
+    "length": "4 nights / 5 days",
+    "start": "2026-01-15T00:00:00Z",
+    "resort": "Cancún Reef Resort, 4 stars",
+    "perPerson": "$899",
     "price": 899,
-    "start": "2026-01-15",
     "nights": 4,
-    "image": "/images/reef1.jpg"
+    "image": "/images/reef1.jpg",
+    "description": "Relax on white-sand beaches, snorkel the reef, and enjoy all-inclusive dining."
   },
   {
     "code": "BHS-2026-02",
     "name": "Bahamas Getaway",
+    "length": "5 nights / 6 days",
+    "start": "2026-02-10T00:00:00Z",
+    "resort": "Bahamas Lagoon, 4 stars",
+    "perPerson": "$1,099",
     "price": 1099,
-    "start": "2026-02-10",
     "nights": 5,
-    "image": "/images/reef2.jpg"
+    "image": "/images/reef2.jpg",
+    "description": "Crystal-clear water, island excursions, and a laid-back resort vibe."
   },
   {
     "code": "DPS-2026-03",
     "name": "Bali Adventure",
+    "length": "7 nights / 8 days",
+    "start": "2026-03-05T00:00:00Z",
+    "resort": "Ubud Jungle Retreat, 5 stars",
+    "perPerson": "$1,499",
     "price": 1499,
-    "start": "2026-03-05",
     "nights": 7,
-    "image": "/images/reef3.jpg"
+    "image": "/images/reef3.jpg",
+    "description": "Temples, rice terraces, and beach sunsets all in one unforgettable trip."
   }
 ]

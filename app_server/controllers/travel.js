@@ -1,19 +1,30 @@
-const path = require('path');
-const fs = require('fs');
+const Trip = require('../models/travlr');
 
-function loadTrips() {
-  const file = path.join(__dirname, '..', 'data', 'trips.json');
-  return JSON.parse(fs.readFileSync(file, 'utf8'));
-}
+exports.index = async (req, res) => {
+  try {
+    const trips = await Trip.find().sort('start').exec();
 
-exports.index = (req, res) => {
-  const trips = loadTrips();
-  res.render('travel', {
-    title: 'Travel Packages',
-    trips: trips.map(t => ({ ...t, priceDisplay: `$${t.price.toLocaleString()}` }))
-  });
+    res.render('travel', {
+      title: 'Travel Packages',
+      trips: trips.map(t => ({
+        name: t.name,
+        priceDisplay: t.price ? `$${t.price.toLocaleString()}` : t.perPerson,
+        start: t.start.toISOString().substring(0, 10),
+        nights: t.nights || t.length
+      }))
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error loading trips');
+  }
 };
 
-exports.apiList = (req, res) => {
-  res.json(loadTrips());
+exports.apiList = async (req, res) => {
+  try {
+    const trips = await Trip.find().exec();
+    res.json(trips);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error loading trips' });
+  }
 };
