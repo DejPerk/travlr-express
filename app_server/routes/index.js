@@ -6,6 +6,5 @@ const travelCtrl = require('../controllers/travel');
 
 router.get('/', homeCtrl.index);
 router.get('/travel', travelCtrl.index);
-router.get('/api/trips', travelCtrl.apiList);
 
 module.exports = router;
