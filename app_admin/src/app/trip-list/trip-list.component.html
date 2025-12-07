@@ -1,0 +1,150 @@
+<div class="container mt-4">
+  <h1>Travlr Trips (Admin)</h1>
+
+  <h2 class="mt-4">Add New Trip</h2>
+  <form (ngSubmit)="onAddTrip()" #addForm="ngForm">
+    <div class="mb-2">
+      <label class="form-label">Code</label>
+      <input class="form-control"
+             name="code"
+             [(ngModel)]="newTrip.code"
+             required>
+    </div>
+
+    <div class="mb-2">
+      <label class="form-label">Name</label>
+      <input class="form-control"
+             name="name"
+             [(ngModel)]="newTrip.name"
+             required>
+    </div>
+
+    <div class="mb-2">
+      <label class="form-label">Resort</label>
+      <input class="form-control"
+             name="resort"
+             [(ngModel)]="newTrip.resort">
+    </div>
+
+    <div class="mb-2">
+      <label class="form-label">Length</label>
+      <input class="form-control"
+             name="length"
+             [(ngModel)]="newTrip.length">
+    </div>
+
+    <div class="mb-2">
+      <label class="form-label">Start Date</label>
+      <input class="form-control"
+             type="date"
+             name="start"
+             [(ngModel)]="newTrip.start">
+    </div>
+
+    <div class="mb-2">
+      <label class="form-label">Nights</label>
+      <input class="form-control"
+             type="number"
+             name="nights"
+             [(ngModel)]="newTrip.nights">
+    </div>
+
+    <div class="mb-2">
+      <label class="form-label">Per Person Label</label>
+      <input class="form-control"
+             name="perPerson"
+             [(ngModel)]="newTrip.perPerson">
+    </div>
+
+    <div class="mb-2">
+      <label class="form-label">Price</label>
+      <input class="form-control"
+             type="number"
+             name="price"
+             [(ngModel)]="newTrip.price">
+    </div>
+
+    <div class="mb-2">
+      <label class="form-label">Image Path</label>
+      <input class="form-control"
+             name="image"
+             [(ngModel)]="newTrip.image">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control"
+                rows="3"
+                name="description"
+                [(ngModel)]="newTrip.description">
+      </textarea>
+    </div>
+
+    <button class="btn btn-primary"
+            type="submit"
+            [disabled]="addForm.invalid">
+      Add Trip
+    </button>
+  </form>
+
+  <hr class="my-4">
+
+  <h2>Existing Trips</h2>
+  <p>Trips length: {{ trips?.length }}</p>
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let t of trips">
+      <app-trip-card
+        [trip]="t"
+        (edit)="onEditTrip($event)"
+        (delete)="onDeleteTrip($event)">
+      </app-trip-card>
+    </div>
+  </div>
+
+  <div *ngIf="isEditing && selectedTrip" class="mt-4">
+    <h2>Edit Trip</h2>
+    <form (ngSubmit)="onUpdateTrip()" #editForm="ngForm">
+      <div class="mb-2">
+        <label class="form-label">Name</label>
+        <input class="form-control"
+               name="editName"
+               [(ngModel)]="selectedTrip.name"
+               required>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Resort</label>
+        <input class="form-control"
+               name="editResort"
+               [(ngModel)]="selectedTrip.resort">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Price</label>
+        <input class="form-control"
+               type="number"
+               name="editPrice"
+               [(ngModel)]="selectedTrip.price">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Description</label>
+        <textarea class="form-control"
+                  rows="3"
+                  name="editDescription"
+                  [(ngModel)]="selectedTrip.description">
+        </textarea>
+      </div>
+
+      <button class="btn btn-success me-2"
+              type="submit">
+        Save Changes
+      </button>
+      <button class="btn btn-secondary"
+              type="button"
+              (click)="cancelEdit()">
+        Cancel
+      </button>
+    </form>
+  </div>
+</div>

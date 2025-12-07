@@ -6,6 +6,8 @@ const hbs = require('hbs');
 require('./app_server/models/db');
 require('./app_api/models/db');
 const app = express();
+const cors = require('cors');
+app.use(cors());
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));  app.use(morgan('dev'));
