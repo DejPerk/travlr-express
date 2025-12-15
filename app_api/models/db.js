@@ -41,6 +41,12 @@ mongoose.connection.on('disconnected', () => {
 });                                                                                                                                                             process.on('SIGTERM', () => {
   gracefulShutdown('app shutdown');
   process.exit(0);
-});                                                                                                                                                             connect();                                                                                                                                                      require('./travlr');
+});
+module.exports = mongoose;
+
+connect();
+
+require('./travlr');
+require('./user');
 
 module.exports = mongoose;

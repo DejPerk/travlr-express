@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { TripDataService } from '../trip-data';
 import { Trip } from '../trip';
 import { TripCardComponent } from '../trip-card/trip-card.component';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trip-list',
@@ -19,9 +21,24 @@ export class TripListComponent implements OnInit {
   selectedTrip: Trip | null = null;
   isEditing = false;
 
-  constructor(private tripDataService: TripDataService) {}
+  // inject AuthService + Router here
+  constructor(
+    private tripDataService: TripDataService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  // easy way for the template to check login
+  get loggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 
   ngOnInit(): void {
+    // if not logged in send to login page
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+      return;
+    }
     this.loadTrips();
   }
 
@@ -40,17 +57,19 @@ export class TripListComponent implements OnInit {
     };
   }
 
-loadTrips(): void {
-  this.tripDataService.getTrips().subscribe({
-    next: trips => {
-      console.log('Trips loaded:', trips.length, trips);
-      this.trips = trips;
-    },
-    error: err => console.error('Error loading trips', err)
-  });
-}
+  loadTrips(): void {
+    this.tripDataService.getTrips().subscribe({
+      next: trips => {
+        console.log('Trips loaded:', trips.length, trips);
+        this.trips = trips;
+      },
+      error: err => console.error('Error loading trips', err)
+    });
+  }
 
   onAddTrip(): void {
+    if (!this.authService.isLoggedIn()) { return; }
+
     this.tripDataService.addTrip(this.newTrip).subscribe({
       next: () => {
         this.newTrip = this.emptyTrip();
@@ -61,12 +80,15 @@ loadTrips(): void {
   }
 
   onEditTrip(trip: Trip): void {
+    if (!this.authService.isLoggedIn()) { return; }
+
     this.selectedTrip = { ...trip };
     this.isEditing = true;
   }
 
   onUpdateTrip(): void {
     if (!this.selectedTrip || !this.selectedTrip._id) { return; }
+    if (!this.authService.isLoggedIn()) { return; }
 
     this.tripDataService.updateTrip(this.selectedTrip._id, this.selectedTrip)
       .subscribe({
@@ -80,7 +102,7 @@ loadTrips(): void {
   }
 
   onDeleteTrip(code: string): void {
-    if (!code) { return; }
+    if (!code || !this.authService.isLoggedIn()) { return; }
 
     this.tripDataService.deleteTrip(code).subscribe({
       next: () => this.loadTrips(),
@@ -93,4 +115,3 @@ loadTrips(): void {
     this.selectedTrip = null;
   }
 }
-
